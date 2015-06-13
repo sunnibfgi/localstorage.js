@@ -15,14 +15,14 @@
   var t = $('[type=text]')
   var i = 0
 
-  if(local.getItem('james')) {
-    t.val(local.getItem('james'))
+  if(llocalStorage.getItem('james')) {
+    t.val(localStorage.getItem('james'))
   }
   s.on('click', function() {
-    local.setItem('anthony', '$$$')
-    local.setItem('james', t.val())
-    local.setItem('durant', '@@@@@@@@@@@@')
-    local.setItem('kobe', '*******')
+    localStoragesetItem('anthony', '$$$')
+    localStorage.setItem('james', t.val())
+    localStorage.setItem('durant', '@@@@@@@@@@@@')
+    localStorage.setItem('kobe', '*******')
   })
   </script>
 </body>
