@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>localstorage.js</title>
+  <meta charset="utf-8"> </head>
+
+<body>
+  <input type="text" value="">
+  <input type="submit" value="search">
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="src/fake-localstorage.js"></script>
+  <script>
+  var s = $('[type=submit]')
+  var t = $('[type=text]')
+  var i = 0
+  if(local.getItem('james')) {
+    t.val(local.getItem('james'))
+  }
+  s.on('click', function() {
+    local.setItem('anthony', '$$$')
+
+    local.setItem('james', t.val())
+    local.setItem('kobe', '&&&&&&&&&&&>>>')
+  })
+  </script>
+</body>
+
+</html>
