@@ -59,7 +59,7 @@
       return Storage.cookie(name)
     },
     setItem: function(name, value, options) {
-      var len = 0
+      var count = 0
       if (typeof Storage.cookie.set === 'function') {
         Storage.cookie.set(name, value, options)
       }
@@ -69,10 +69,10 @@
       this.key()
       for (name in this) {
         if (this.hasOwnProperty(name) && name !== 'length') {
-          len += 1
+          count += 1
         }
       }
-      this.length = len
+      this.length = count
     },
     removeItem: function(name, options) {
       if (this[name] !== undefined && this.hasOwnProperty(name)) {
@@ -97,7 +97,7 @@
           count += 1
         }
       }
-      if (name !== undefined) {
+      if (name !== undefined && first) {
         result = first.split('=')[0].trim()
       }
       this.length = count
