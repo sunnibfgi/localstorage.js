@@ -1,6 +1,5 @@
 //  fake-localstorage.js
 //  jamesanthony
-
 ;(function(global) {
   var cookie = function() {
     function setCookie(name, value, days) {
@@ -35,7 +34,6 @@
       remove: removeCookie
     }
   }()
-
   if (!String.prototype.trim) {
     var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
     String.prototype.trim = function() {
@@ -50,22 +48,16 @@
     this.length = 0
     this.key(':)')
   }
-
   Storage.$ = window.$ || window.jQuery
   Storage.cookie = (Storage.$ && Storage.$.cookie) ? Storage.$.cookie : cookie
-
-
   Storage.prototype = {
-
     constructor: Storage,
-
     getItem: function(name) {
       if (Storage.cookie.get) {
         return Storage.cookie.get(name)
       }
       return Storage.cookie(name)
     },
-
     setItem: function(name, value, options) {
       var len = 0
       if (typeof Storage.cookie.set === 'function') {
@@ -82,7 +74,6 @@
       }
       this.length = len
     },
-
     removeItem: function(name, options) {
       if (this[name] !== undefined && this.hasOwnProperty(name)) {
         delete this[name]
@@ -93,15 +84,12 @@
       }
       return Storage.$.removeCookie(name, options)
     },
-
     key: function() {
-
       var split = unescape(document.cookie).split(';')
       var first = split[0]
       var result = null
       var pair
       var count = 0
-
       for (var i = 0, len = split.length; i < len; i++) {
         pair = split[i].split('=')
         if (pair[0].trim()) {
@@ -109,15 +97,12 @@
           count += 1
         }
       }
-
       if (name !== undefined) {
         result = first.split('=')[0].trim()
       }
       this.length = count
       return result
-
     },
-
     clear: function() {
       var split = unescape(document.cookie).split(';')
       for (var i = 0, len = split.length; i < len; i++) {
@@ -131,4 +116,3 @@
     global.localStorage = Storage()
   }
 })(window)
-
