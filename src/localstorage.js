@@ -47,8 +47,8 @@
     if (!(this instanceof Storage)) {
       return new Storage
     }
-    this.key(':)')
     this.length = 0
+    this.key(':)')
   }
 
   Storage.$ = window.$ || window.jQuery
@@ -60,11 +60,6 @@
     constructor: Storage,
 
     getItem: function(name) {
-      var cookie = document.cookie
-      if (cookie) {
-        var split = cookie.split(';')
-        this.length = split.length
-      }
       if (Storage.cookie.get) {
         return Storage.cookie.get(name)
       }
@@ -72,6 +67,7 @@
     },
 
     setItem: function(name, value, options) {
+      var len = 0
       if (typeof Storage.cookie.set === 'function') {
         Storage.cookie.set(name, value, options)
       }
@@ -79,11 +75,18 @@
         Storage.cookie(name, value, options)
       }
       this.key()
+      for (name in this) {
+        if (this.hasOwnProperty(name) && name !== 'length') {
+          len += 1
+        }
+      }
+      this.length = len
     },
+
     removeItem: function(name, options) {
-      if (this.length && this[name] !== undefined) {
-        this.length -= 1
+      if (this[name] !== undefined && this.hasOwnProperty(name)) {
         delete this[name]
+        this.length -= 1
       }
       if (Storage.cookie.remove) {
         return Storage.cookie.remove(name)
@@ -91,24 +94,28 @@
       return Storage.$.removeCookie(name, options)
     },
 
-    key: function(name) {
+    key: function() {
+
       var split = unescape(document.cookie).split(';')
       var first = split[0]
       var result = null
       var pair
+      var count = 0
+
       for (var i = 0, len = split.length; i < len; i++) {
-        if (split[i]) {
-          this.length = split.length
-        }
         pair = split[i].split('=')
         if (pair[0].trim()) {
           this[pair[0].trim()] = pair[1]
+          count += 1
         }
       }
+
       if (name !== undefined) {
         result = first.split('=')[0].trim()
       }
+      this.length = count
       return result
+
     },
 
     clear: function() {
@@ -124,3 +131,4 @@
     global.local = Storage()
   }
 })(window)
+
