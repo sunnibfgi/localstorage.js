@@ -1,5 +1,6 @@
 //  fake-localstorage.js
 //  jamesanthony
+
 ;(function(global) {
   var cookie = function() {
     function setCookie(name, value, days) {
@@ -104,15 +105,14 @@
       return result
     },
     clear: function() {
-      var split = unescape(document.cookie).split(';')
-      for (var i = 0, len = split.length; i < len; i++) {
-        var pair = split[i].split('=')
-        this.removeItem(pair[0].trim())
+      for (var name in this) {
+        if (this.hasOwnProperty(name) && name !== 'length') {
+          this.removeItem(name)
+        }
       }
-      return
     }
   }
-  if (typeof global.localStorage === 'undefined') {
-    global.localStorage = Storage()
+  if (typeof global.local === 'undefined') {
+    global.local = Storage()
   }
 })(window)
