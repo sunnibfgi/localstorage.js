@@ -112,7 +112,7 @@
       }
     }
   }
-  if (typeof global.local === 'undefined') {
-    global.local = Storage()
+  if (typeof global.localStorage === 'undefined') {
+    global.localStorage = Storage()
   }
 })(window)
