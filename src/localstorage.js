@@ -1,7 +1,7 @@
 //  fake-localstorage.js
 //  jamesanthony
 
-;(function(global) {
+;(function(global, $) {
   var cookie = function() {
     function setCookie(name, value, days) {
       days = days || 365
@@ -49,7 +49,7 @@
     this.length = 0
     this.key(':)')
   }
-  Storage.$ = window.$ || window.jQuery
+  Storage.$ = global.$
   Storage.cookie = (Storage.$ && Storage.$.cookie) ? Storage.$.cookie : cookie
   Storage.prototype = {
     constructor: Storage,
@@ -115,4 +115,4 @@
   if (typeof global.localStorage === 'undefined') {
     global.localStorage = Storage()
   }
-})(window)
+})(window, window.jQuery)
