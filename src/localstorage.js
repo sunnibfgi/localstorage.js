@@ -1,17 +1,15 @@
-//  fake-localstorage.js
-//  jamesanthony
-
+// fake-localstorage.js
 ;(function(global, $) {
+  
   var cookie = function() {
     function setCookie(name, value, days) {
       days = days || 365
-      var expires
+      var expires = ''
       if (days) {
         var date = new Date
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
         expires = '; expires=' + date.toGMTString()
       }
-      else expires = ''
       document.cookie = name + '=' + value + expires + '; path=/'
     }
 
@@ -35,9 +33,11 @@
       remove: removeCookie
     }
   }()
+  
+  // String.prototype.trim polyfill
   if (!String.prototype.trim) {
-    var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
     String.prototype.trim = function() {
+      var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
       return this.replace(rtrim, '')
     }
   }
@@ -49,8 +49,10 @@
     this.length = 0
     this.key(':)')
   }
+  
   Storage.$ = global.$
   Storage.cookie = (Storage.$ && Storage.$.cookie) ? Storage.$.cookie : cookie
+  
   Storage.prototype = {
     constructor: Storage,
     getItem: function(name) {
@@ -87,10 +89,9 @@
     },
     key: function() {
       var split = unescape(document.cookie).split(';')
-      var first = split[0]
-      var result = null
-      var pair
-      var count = 0
+      ,first = split[0]
+      ,result = null
+      ,count = 0, pair
       for (var i = 0, len = split.length; i < len; i++) {
         pair = split[i].split('=')
         if (pair[0].trim()) {
