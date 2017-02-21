@@ -28,9 +28,9 @@
       setCookie(name, '', -1);
     }
     return {
-      get: getCookie,
-      set: setCookie,
-      remove: removeCookie
+      getCookie,
+      setCookie,
+      removeCookie
     }
   }()
   
